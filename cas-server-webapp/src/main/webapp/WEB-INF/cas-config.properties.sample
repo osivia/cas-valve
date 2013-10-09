@@ -1,0 +1,5 @@
+# LDAP connection properties
+ldap.url=ldap://localhost:1389
+ldap.user.dn=cn=Directory Manager
+ldap.user.password=opends
+ldap.filter=cn=%u,ou=personnes,dc=ent-bretagne,dc=fr
