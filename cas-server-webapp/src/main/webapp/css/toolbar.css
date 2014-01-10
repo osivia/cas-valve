@@ -1,0 +1,106 @@
+/** Toolbar minimum style */
+
+#toolbar {    
+    visibility: hidden;
+}
+
+#toolbar .toolbar-content {
+	text-align: right;
+    font-family: 'Oxygen', sans-serif;
+    border-bottom: 1px solid #C5C7C6;
+    background-color: #DCDDDC;
+    padding: 0;
+    margin: 0;
+	visibility: visible;
+}
+
+#toolbar .toolbar-content.offline {
+	display: none;
+}
+
+
+#toolbar .toolbar-administration {
+    float: left;
+}
+
+.toolbar-menu {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+
+#toolbar a, #toolbar p {
+	display: inline-block;
+	text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;    
+    color: #373737;
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 24px;
+    margin: 0;
+    padding: 0 15px;    
+}
+
+#toolbar a:HOVER {
+    background-color: #E9EAE9;
+    text-decoration: none;
+}
+
+.toolbar-menu a, .toolbar-menu p {
+	margin: 0;
+	padding: 0 5px;
+}
+
+#toolbar ul a, .toolbar-menu ul a, #toolbar ul p, .toolbar-menu ul p {
+    display: block;
+    font-size: 10px;
+    line-height: 22px;
+    text-align: left;
+}
+
+#toolbar ul a.uncheck, #toolbar ul p.uncheck {
+    background-image: url('../images/toolbar/checkbox-uncheck.png');
+    background-repeat: no-repeat;
+    background-position: 15px 0;
+    padding-left: 35px;
+}
+
+#toolbar ul a.check, #toolbar ul p.check {
+    background-image: url('../images/toolbar/checkbox-check.png');
+    background-repeat: no-repeat;
+    background-position: 15px 0;
+    padding-left: 35px;
+}
+
+#toolbar ul p, .toolbar-menu ul p {
+    color: #929292;
+}
+
+
+.toolbar-menu ul {
+	display: none;
+    position: absolute;
+    border: 1px solid #C5C7C6;
+    background-color: #DCDDDC;  
+    margin: 0;
+    padding: 0;
+}
+
+.toolbar-menu:HOVER ul, .toolbar-menu a:HOVER ul {
+    display: block;
+}
+
+.toolbar-menu ul li {
+    display: block;
+}
+
+
+.toolbar-menu hr {
+    border: medium none;
+    background-color: #888888;
+    height: 1px;
+    margin: 4px 12px;
+}

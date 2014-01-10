@@ -1,0 +1,596 @@
+body {
+	background-image: url('images/background.png');
+	background-repeat: no-repeat;
+	background-position: 125px 40px;
+	margin: 0;
+	padding: 0;
+    font-family: 'Oxygen', sans-serif;
+    font-size: 13px;
+	color: #333333;
+}
+
+header, section, footer {
+	margin: 0 40px 20px;
+}
+
+a {
+	color: #333333;
+    text-decoration: none;
+    
+}
+
+a:HOVER {
+	color: #4DA0AB;
+	text-decoration: underline;
+}
+
+p, ul, li {
+	margin: 0;
+    line-height: 150%;
+}
+
+
+
+/* Toolbar */
+
+#toolbar {
+	position: fixed;
+	z-index: 3;
+	width: 100%;
+}
+
+#toolbar .toolbar-content {
+    padding: 0 40px;
+    background-color: rgb(239, 240, 235);
+}
+
+#toolbar a, #toolbar p {
+	font-weight: normal;
+}
+
+#toolbar a:HOVER {
+    background-color: #4DA0AB;
+    color: #FFFFFF;
+}
+
+#toolbar .toolbar-menu ul {
+	background-color: rgb(239, 240, 235);
+    z-index: 3;
+}
+
+#toolbar hr {
+	background-color: #C5C7C6;
+}
+
+#toolbar a#refresh-page {
+    background-image: url('images/actualiser.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 24px;
+    width: 24px;
+    padding: 0 3px;
+}
+
+
+
+/* Header */
+
+header {
+	padding-top: 25px;
+}
+
+#banner {
+	position: relative;
+    height: 80px;
+    overflow: hidden;
+    -webkit-transition: 0.2s all;
+    -moz-transition: 0.2s all;
+    -ms-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+
+#logo .osivia {
+	position: absolute;
+	left: 20px;
+    bottom: 2px;
+    display: block;
+    background-image: url("images/logo.png");
+    height: 70px;
+    width: 254px;
+}
+
+#logo .barre {
+	position: absolute;
+    left: 280px;
+    right: 0;
+    bottom: 8px;
+    display: block;
+	background-image: url("images/barre.png");
+    background-repeat: repeat-x;
+    height: 16px;
+    width: auto;
+}
+
+
+#search {
+	position: absolute;
+    top: 10px;
+    right: 0;
+    text-align: center;
+    z-index: 1;
+}
+
+
+nav {
+    width: 100%;
+    z-index: 2;
+}
+
+nav.fixed {
+	position: fixed;
+	top: 25px;
+	left: 40px;
+	right: 40px;
+	width: auto;
+}
+
+#tabs {
+	position: relative;
+}
+
+#tabs a {
+	line-height: 42px;
+    padding: 0 16px;
+}
+
+#tabs, #tabs a, #tabs ul.sub-menu a {
+	background-color: rgb(239, 240, 235);
+    background-color: rgba(229, 230, 221, 0.6);
+    color: #333333;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+#tabs .current a, #tabs a:HOVER, #tabs ul.sub-menu a:HOVER {
+    background-color: #4DA0AB;
+    color: #FFFFFF;
+}
+
+#tabs .dynamic-pages {
+    position: absolute;
+    top: -28px;
+    right: 0;
+    background-color: #FFFFFF;
+}
+
+#tabs .dynamic-page {
+    display: inline-block;
+    background-color: rgb(239, 240, 235);
+    border-radius: 12px;
+    margin-left: 5px;
+}
+
+#tabs .dynamic-page.current, #tabs .dynamic-page:HOVER {
+    background-color: #4DA0AB;
+    color: #FFFFFF;
+}
+
+#tabs .dynamic-page a {
+	display: inline-block;
+	background: none;
+	color: inherit;
+	line-height: 24px;
+	padding: 0;
+	margin-left: 12px;
+}
+
+#tabs .dynamic-page a.close {
+    background-image: url("images/croix-noire.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 10px;
+    padding: 0;
+    margin-left: 8px;
+    margin-right: 12px;
+    height: 10px;
+    width: 10px;
+}
+
+#tabs .dynamic-page.current a.close, #tabs .dynamic-page:HOVER a.close {
+    background-image: url("images/croix-blanche.png");	
+}
+
+
+
+/* Breadcrumb */
+
+#breadcrumb {
+	margin-bottom: 20px;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+
+
+/* Section : menu */
+
+#menu {	
+	position: absolute;
+	border-color: #E5E6DD;
+	border-width: 1px;
+	border-right-style: solid;
+	padding-right: 20px;
+	width: 200px;
+}
+
+#menu .portlet-header {
+    margin-bottom: 10px;
+}
+
+#menu .portlet-titlebar-title {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #4DA0AB;
+}
+
+#menu .nuxeo-publish-navigation ul {
+	margin: 0 0 0 -10px;
+	padding: 0;
+	list-style: none;
+}
+
+#menu .nuxeo-publish-navigation li {
+    margin: 1px 0;
+}
+
+#menu .nuxeo-publish-navigation ul ul {
+    margin-left: 30px;
+}
+
+#menu .nuxeo-publish-navigation ul a {
+    display: block;
+    font-size: 13px;
+    line-height: 22px;
+    padding: 1px 10px;
+    text-align: left;
+}
+
+#menu .nuxeo-publish-navigation ul a:HOVER {
+    background: #4DA0AB;
+    color: #FFFFFF;
+}
+
+#menu input[type="text"] {
+	max-width: 170px;
+}
+
+#menu #datefrom, #menu #dateto {
+    max-width: 80px;
+}
+
+
+/* Section : search */
+
+#menu.search .search-title {
+	display: block;
+    color: #333333;
+    padding: 0;
+    margin-bottom: 10px;
+    line-height: 24px;
+    font-size: 14px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+#menu.search a.search-title {
+	background-image: url(images/haut.jpg);
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-right: 30px;
+    text-decoration: none;
+}
+
+#menu.search .off a.search-title {
+	background-image: url(images/bas.jpg);
+}
+
+#menu.search .off ~ div {
+	display: none;
+}
+
+
+/* Section : content */
+
+section > .content {	
+	border-color: #E5E6DD;
+    border-width: 1px;
+    border-bottom-style: solid;
+    padding-bottom: 20px;
+}
+
+section > .content.with-menu {
+	margin-left: 240px;
+}
+
+
+#col2 {
+	overflow: hidden;
+}
+
+
+#col3 {
+	float: right;
+	margin-left: 40px;
+	width: 30%;
+}
+
+
+section .content .portlet-header {
+    border-color: #4DA0AB;
+    border-width: 2px;
+    border-bottom-style: solid;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+section .content .portlet-titlebar-title {
+    font-size: 24px;
+}
+
+
+/* Portlets */
+
+.portlet-container {
+    margin-bottom: 30px;
+}
+
+.portlet-header {
+	position: relative;
+}
+
+.portlet-titlebar-title {
+	display: block;
+	margin-right: 28px;
+}
+
+.portlet-mode-container {
+   position: absolute;
+   bottom: 10px;
+   right: 0;
+}
+
+.portlet-mode-container .mode-button {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.portlet-mode-container .mode-button a:HOVER {
+    text-decoration: none;
+}
+
+.portlet-mode-maximized {
+    display: block;
+    background-image : url(images/maximiser.png);
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    text-decoration: none;
+}
+
+.portlet-mode-normal {
+    display: block;
+    background-image : url(images/minimiser.png);
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    text-decoration: none;
+}
+
+.portlet-close {
+    display: block;
+    background-image : url(images/fermer.png);
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    text-decoration: none;
+}
+
+
+#services .dyna-window-content {
+    margin: 0;
+}
+
+#services .portlet-content-center {
+    margin-bottom: 20px;
+}
+
+
+.selector-libelle {
+	display: block;
+	margin-bottom: 5px;
+	font-size: 14px;
+    color: #4DA0AB;
+}
+
+
+/* Tuiles */
+
+.nuxeo-list-tuile ul, #menu .nuxeo-list-tuile ul {
+	margin: 0;
+	padding: 0;
+	font-size: 0;
+}
+
+.nuxeo-list-tuile li {
+	display: inline-block;
+	overflow: hidden;
+	margin: 0;
+    padding: 0;
+    font-size: 16px;
+    -webkit-transition: 0.1s all;
+    -moz-transition: 0.1s all;
+    -ms-transition: 0.1s all;
+    transition: 0.1s all;
+}
+
+.nuxeo-list-tuile li:HOVER {
+	cursor: pointer;
+    -webkit-transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
+    -moz-transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
+    -ms-transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
+    transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
+}
+
+.nuxeo-list-tuile .tuile {
+	display: table;
+	border-collapse: separate;
+	border-spacing: 5px;
+	margin: 1px;
+	height: 90px;
+	width: 100%;
+	background-color: #4DA0AB;
+	color: #FFFFFF;
+}
+
+.nuxeo-list-tuile .tuile .contenu-tuile {
+    display: table-row;
+}
+
+.nuxeo-list-tuile .tuile .contenu-tuile > div {
+	display: table-cell;
+}
+
+.nuxeo-list-tuile .tuile .contenu-tuile > div > div {
+    max-height: 80px;
+}
+
+.nuxeo-list-tuile .tuile img {
+	max-height: 80px;
+}
+
+.nuxeo-list-tuile .tuile p {
+    padding: 0 5px;
+}
+
+
+.nuxeo-list-tuile .tuile .normal {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.nuxeo-list-tuile .tuile .thumbnail {
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 35%;
+}
+
+.nuxeo-list-tuile .tuile .description {
+	width: 100%;
+	vertical-align: middle;
+}
+
+.nuxeo-list-tuile .tuile .background {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.nuxeo-list-tuile .tuile .background p {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.nuxeo-list-tuile .tuile .banner {
+	background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+.nuxeo-list-tuile .tuile .banner p {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+.tuile.rose {
+	background-color: #E64376;
+}
+
+.tuile.orange {
+    background-color: #EE8027;
+}
+
+.tuile.vert {
+    background-color: #77B756;
+}
+
+.tuile.jaune {
+    background-color: #E9E11F;
+}
+
+.tuile.turquoise {
+    background-color: #009E84;
+}
+
+.tuile.violet {
+    background-color: #97497F;
+}
+
+
+.tuiles-1 .nuxeo-list-tuile li {    
+    width: 100%;
+}
+
+.tuiles-1 .nuxeo-list-tuile .tuile {    
+    height: 50px;
+}
+
+.tuiles-1 .nuxeo-list-tuile .tuile .contenu-tuile > div > div {
+    height: 40px;
+}
+
+
+.tuiles-2 .nuxeo-list-tuile li {	
+	width: 50%;
+}
+
+.tuiles-2 .nuxeo-list-tuile .tuile {    
+    height: 120px;
+}
+
+.tuiles-2 .nuxeo-list-tuile .tuile .contenu-tuile > div > div {
+    max-height: 110px;
+}
+
+
+.tuiles-3 .nuxeo-list-tuile li {
+    width: 33.33%;
+    min-width: 100px;
+}
+
+
+.tuiles-4 .nuxeo-list-tuile li {
+    width: 25%;
+}
+
+/* Portlet fichepersonne */
+.ligneFichePersonne {
+	height: 3em;
+}
+
+.ligneFichePersonne .nomAttr {
+	font-weight: bold;
+	float:left;
+	width: 15em;
+}
+.ligneFichePersonne .contenu {
+	display: inline-block;
+	padding-left: 1em;
+}
+
+.boutonFichePersonne {
+	display:inline;
+}

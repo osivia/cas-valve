@@ -1,39 +1,118 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<%@ page session="true" %>
-<%@ page pageEncoding="UTF-8" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page import="java.net.URL"%>
+<%@ page session="true"%>
+<%@ page pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <spring:theme code="mobile.custom.css.file" var="mobileCss" text="" />
+
+<%
+	URL serviceUrl = new URL(request.getParameter("service"));
+	String baseUrl = serviceUrl.getProtocol().concat("://").concat(serviceUrl.getHost());
+%>
+
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-	<head>
-	    <title>CAS &#8211; Central Authentication Service</title>
-        <c:choose>
-           <c:when test="${not empty requestScope['isMobile'] and not empty mobileCss}">
-                <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-                <meta name="apple-mobile-web-app-capable" content="yes" />
-                <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-                <link type="text/css" rel="stylesheet" media="screen" href="<c:url value="/css/fss-framework-1.1.2.css" />" />
-                <link type="text/css" rel="stylesheet" href="<c:url value="/css/fss-mobile-${requestScope['browserType']}-layout.css" />" />
-                <link type="text/css" rel="stylesheet" href="${mobileCss}" />
-           </c:when>
-           <c:otherwise>
-                <spring:theme code="standard.custom.css.file" var="customCssFile" />
-                <link type="text/css" rel="stylesheet" href="<c:url value="${customCssFile}" />" />
-           </c:otherwise>
-        </c:choose>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="<c:url value="/js/cas.js" />"></script>
-	    <link rel="icon" href="<c:url value="/favicon.ico" />" type="image/x-icon" />
-	</head>
-	<body id="cas" class="fl-theme-iphone">
-    <div class="flc-screenNavigator-view-container">
-        <div class="fl-screenNavigator-view">
-            <div id="header" class="flc-screenNavigator-navbar fl-navbar fl-table">
-                <h1 id="app-name" class="fl-table-cell">Central Authentication Service (CAS)</h1>
-            </div>		
-            <div id="content" class="fl-screenNavigator-scroll-container">
+<head>
+<title>Osivia &#8211; Authentification</title>
+<c:choose>
+	<c:when
+		test="${not empty requestScope['isMobile'] and not empty mobileCss}">
+		<meta name="viewport"
+			content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link type="text/css" rel="stylesheet" media="screen"
+			href="<c:url value="/css/fss-framework-1.1.2.css" />" />
+		<link type="text/css" rel="stylesheet"
+			href="<c:url value="/css/fss-mobile-${requestScope['browserType']}-layout.css" />" />
+		<link type="text/css" rel="stylesheet" href="${mobileCss}" />
+	</c:when>
+	<c:otherwise>
+		<link type="text/css" rel="stylesheet"
+			href="<c:url value="/css/cas.css"/>" />
+
+		<link type="text/css" rel="stylesheet"
+			href="<c:url value="/css/common.css"/>" />
+		<link type="text/css" rel="stylesheet"
+			href="<c:url value="/css/tabs.css"/>" />
+		<link type="text/css" rel="stylesheet"
+			href="<c:url value="/css/toolbar.css"/>" />
+
+		<link type="text/css" rel="stylesheet"
+			href="<c:url value="/css/osivia-demo.css"/>" />
+	</c:otherwise>
+</c:choose>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<c:url value="/js/cas.js" />"></script>
+<link rel="icon" href="<c:url value="/css/images/favicon.ico" />"
+	type="image/x-icon" />
+</head>
+<body id="cas">
+
+	<!--
+
+ Barre d'outils 
+
+-->
+
+	<div id="toolbar">
+
+		<div class="toolbar-content">
+			<!--
+
+         Login 
+
+        -->
+			<a href="http://www.osivia.org">
+
+				S'inscrire </a>
+		</div>
+
+	</div>
+
+
+	<header> <!-- Bannière -->
+	<div id="banner">
+		<!-- Logo -->
+		<div id="logo">
+			<a class="osivia" href="<%=baseUrl%>" title="OSIVIA"></a>
+			<div class="barre"></div>
+		</div>
+
+		<!--
+
+     	Recherche 
+
+    	-->
+		<div id="search">&nbsp;</div>
+
+	</div>
+
+	<!-- Onglets --> <nav class="">
+	<div id="tabs">
+
+		<div class="dynamic-pages"></div>
+
+
+		<ul class="nav">
+
+
+			<li class="first current"><a href=".">Authentification</a></li>
+
+			<!-- Prevent empty tabs bar -->
+			<li>&nbsp;</li>
+		</ul>
+	</div>
+	</nav> </header>
+
+	<section>
+
+	<div id=""
+		class="content with-menu fl-screenNavigator-scroll-container">

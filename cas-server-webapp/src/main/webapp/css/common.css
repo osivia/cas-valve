@@ -1,0 +1,313 @@
+
+/* Commons */
+
+fieldset {
+	margin: 10px 0;
+}
+
+
+.osivia-portal-table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 5px 1px;
+}
+
+.osivia-portal-row {
+	display: table-row;
+}
+
+.osivia-portal-cell {
+    display: table-cell;
+}
+
+.osivia-portal-cell.label {
+	text-align: right;
+}
+
+.osivia-portal-cell.label.required:BEFORE {
+	content: "* ";
+    color: #FF0000 !important;
+}
+
+
+.osivia-portal-spacer {
+	display: inline-block;
+	width: 6px;
+}
+
+
+/* Regions and windows commands */
+
+.osivia-portal-regions-commands, .osivia-portal-windows-commands {
+	display: inline-block;
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(125, 119, 96);
+	border-color: rgba(125, 119, 96, 0.2);	
+    margin-bottom: 8px;
+    padding: 5px 10px 0;
+}
+
+.osivia-portal-windows-commands {
+	border-left-width: 8px;
+	border-right-width: 8px;
+}
+
+.osivia-portal-regions-commands a, .osivia-portal-regions-commands a:HOVER, .osivia-portal-windows-commands a, .osivia-portal-windows-commands a:HOVER {
+    text-decoration: none;
+}
+
+.osivia-portal-regions-commands img {
+	height: 16px;
+	width: 16px;
+}
+
+
+.osivia-portal-regions-template-name-span {
+	background: rgb(155, 155, 155);
+	color: white;
+}
+.osivia-portal-regions-cms-name-span {
+	background: rgb(182, 182, 182);
+	color: white;
+}
+
+
+
+.osivia-portal-windows-commands img {
+	height: 16px;
+	width: 16px;
+}
+
+.osivia-portal-windows-commands > div {
+	display: inline-block;
+}
+
+
+/* Menubar */
+
+.portlet-menuitem {
+    display: inline-block;
+    margin: 5px 20px 10px 0;    
+}
+
+a.portlet-menuitem {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(125, 119, 96);
+    border-color: rgba(125, 119, 96, 0.2);
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    background-color: #FCFCFC;
+    line-height: 24px;
+    padding: 2px 5px 2px 33px;
+}
+
+a.portlet-menuitem:HOVER {
+    background-color: #FFFFFF;
+}
+
+a.portlet-menuitem.portlet-menuitem-permalink {
+    background-image: url('../images/icons/icon_permalink.png');
+    background-size: 24px;
+}
+
+a.portlet-menuitem.portlet-menuitem-print {
+    background-image: url('../images/icons/icon_print.png');
+    background-size: 24px;
+}
+
+a.portlet-menuitem.portlet-menuitem-rss {
+    background-image: url('../images/icons/icon_rss.png');
+    background-size: 24px;
+}
+
+a.portlet-menuitem.published {
+    background-image: url('../images/icons/icon_published_version.png');
+    background-size: 24px;
+}
+
+a.portlet-menuitem.publish-action {
+    background-image: url('../images/icons/icon_publish.png');
+    background-size: 24px;
+}
+
+a.portlet-menuitem.live {
+    background-image: url('../images/icons/icon_live_version.png');
+    background-size: 24px;
+}
+
+a.portlet-menuitem.edition {
+    background-image: url('../images/icons/icon_edition.png');
+    background-size: 18px;
+}
+
+a.portlet-menuitem.download {
+    background-image: url('../images/icons/icon_download.png');
+    background-size: 18px;
+}
+
+a.portlet-menuitem-contextualize {
+	background-image: url('../images/icons/icon_published_version.png');
+    background-size: 24px;
+}
+
+a.portlet-menuitem.nuxeo, a.portlet-menuitem-nuxeo-manage {
+    background-image: url('../images/icons/icon_nuxeo.png');
+    background-size: 24px;
+}
+
+
+
+/* Fancybox */
+
+.fancybox-content {
+    display: none;
+}
+
+.fancybox-table {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.fancybox-table-header {
+    display: table-header-group;
+    font-weight: bold;
+}
+
+form.fancybox-form {
+    display: table-row-group;
+    margin-bottom: 10px;
+}
+
+.fancybox-table-row {
+    display: table-row;   
+}
+
+.fancybox-table-cell {
+    display: table-cell;
+    padding: 2px 0;
+    vertical-align: middle;
+}
+
+.fancybox-table-cell p {
+	margin: 0;
+}
+
+.fancybox-table-header .fancybox-table-cell {
+    margin: 0 5px;
+}
+
+.fancybox-label {
+    padding-right: 5px;
+    text-align: right;
+}
+
+.fancybox-upper {
+	vertical-align: top;
+}
+
+form.fancybox-form .small-input {
+    margin: 0 20px;
+    text-align: left;
+    vertical-align: top;
+}
+
+form.fancybox-form .fancybox-center-content {
+	margin-top: 10px;
+    text-align: center;
+}
+
+form.fancybox-form .required:BEFORE {
+    content: "* ";
+    color: red !important;
+}
+
+
+
+/* JSTree */
+
+.jstree {
+    width: 280px;
+    min-height: 100px;
+    overflow: auto;
+}
+
+input.filter {
+    width: 180px;
+}
+
+input.inline-checkbox {
+    vertical-align: middle;
+}
+
+
+.textarea-wrapper {
+    margin: 0;
+    padding: 0;
+}
+
+.textarea-wrapper textarea {
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+	width:100%;
+	
+}
+
+/* Notifications default style */
+
+#notifications-window {
+	visibility: hidden;
+}
+
+#notifications-window .notifications-list {
+	visibility: visible;
+}
+
+#notifications-window .notifications {
+	background-position: 10px center;
+	background-repeat: no-repeat;
+	background-size: 24px;
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 10px;
+	padding: 2px 10px 2px 44px;
+}
+
+#notifications-window .notifications p, #notifications-window .notifications ul {
+	line-height: 22px;
+	margin: 3px;
+}
+
+#notifications-window .notifications.error {
+    background-image: url('../images/notifications/notifications-error.png');
+    background-color: #FF9D9A;
+    border-color: #D62103;
+    font-weight: bold;
+}
+
+#notifications-window .notifications.info {
+    background-image: url('../images/notifications/notifications-info.png');
+    background-color: #96ECF6;
+    border-color: #56ACDC;
+}
+
+#notifications-window .notifications.success {
+    background-image: url('../images/notifications/notifications-success.png');
+    background-color: #A7F478;
+    border-color: #4C9E15;
+}
+
+#notifications-window .notifications.advice {
+    background-image: url('../images/notifications/notifications-advice.png');
+    background-color: #FFF3B5;
+    border-color: #D7C98B;
+}
+
+#notifications-window .notifications.warning {
+    background-image: url('../images/notifications/notifications-warning.png');
+    background-color: #FEDB80;
+    border-color: #F6AB50;
+}

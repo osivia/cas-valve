@@ -24,7 +24,13 @@
 --%>
 
 <%@ page contentType="text/html; charset=UTF-8" %>
+
+
 <jsp:directive.include file="includes/top.jsp" />
+<c:out value="${portalLinks.registerUrl}"></c:out>
+Pour créer un compte, vous pouvez en faire la demande en remplissant le formulaire sur <a href="http://www.osivia.org">www.osivia.org</a>
+
+
 			<form:form method="post" id="fm1" cssClass="fm-v clearfix" commandName="${commandName}" htmlEscape="true">
 			    <form:errors path="*" cssClass="errors" id="status" element="div" />
                 <div class="box fl-panel" id="login">
@@ -39,7 +45,7 @@
 
 						<c:if test="${empty sessionScope.openIdLocalId}">
 						<spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey" />
-						<form:input cssClass="required" cssErrorClass="error" id="username" size="25" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="false" htmlEscape="true" />
+						<form:input cssClass="required" cssErrorClass="error" id="username" size="20" tabindex="1" accesskey="${userNameAccessKey}" path="username" autocomplete="false" htmlEscape="true" />
 						</c:if>
                     </div>
                     <div class="row fl-controls-left">
@@ -51,7 +57,7 @@
 						http://www.geocities.com/technofundo/tech/web/ie_autocomplete.html
 						--%>
 						<spring:message code="screen.welcome.label.password.accesskey" var="passwordAccessKey" />
-						<form:password cssClass="required" cssErrorClass="error" id="password" size="25" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
+						<form:password cssClass="required" cssErrorClass="error" id="password" size="20" tabindex="2" path="password"  accesskey="${passwordAccessKey}" htmlEscape="true" autocomplete="off" />
                     </div>
                     <div class="row check">
                         <input id="warn" name="warn" value="true" tabindex="3" accesskey="<spring:message code="screen.welcome.label.warn.accesskey" />" type="checkbox" />

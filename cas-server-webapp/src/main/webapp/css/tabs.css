@@ -1,0 +1,52 @@
+#tabs {
+    background-color: #DCDDDC;
+}
+
+#tabs ul {
+    margin: 0;
+    padding: 0;
+}
+
+#tabs ul li {
+    display: inline-block;
+}
+
+#tabs a {
+    display: block;
+    padding: 0px 30px;
+    line-height: 52px;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: #373737;
+}
+
+#tabs .current a, #tabs a:HOVER, #tabs ul.sub-menu a:HOVER {
+    background-color: #E9EAE9;
+    text-decoration: none;
+    color: #373737;
+}
+
+#tabs ul.sub-menu {
+    position: absolute;
+    padding: 0;
+    visibility: hidden;
+}
+
+#tabs li:HOVER ul.sub-menu, #tabs a:HOVER ul.sub-menu {
+    visibility: visible;
+}
+
+#tabs ul.sub-menu li {
+    display: block;
+}
+
+#tabs ul.sub-menu a {
+    font-size: 12px;
+    line-height: 32px;
+    background-color: #DCDDDC;
+}
