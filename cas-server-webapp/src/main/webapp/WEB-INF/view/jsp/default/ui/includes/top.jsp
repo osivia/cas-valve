@@ -10,8 +10,12 @@
 <spring:theme code="mobile.custom.css.file" var="mobileCss" text="" />
 
 <%
-	URL serviceUrl = new URL(request.getParameter("service"));
-	String baseUrl = serviceUrl.getProtocol().concat("://").concat(serviceUrl.getHost());
+	String baseUrl = "http://".concat(request.getServerName()); // Par défaut, retour au root du domaine associé à CAS
+	if(request.getParameter("service") != null) {
+	    // Si possible utiliser le service en paramètre
+		URL serviceUrl = new URL(request.getParameter("service"));
+		baseUrl = serviceUrl.getProtocol().concat("://").concat(serviceUrl.getHost());
+	}
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
