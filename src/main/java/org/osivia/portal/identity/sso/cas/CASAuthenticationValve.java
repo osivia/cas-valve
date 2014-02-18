@@ -23,6 +23,7 @@
 package org.osivia.portal.identity.sso.cas;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -57,6 +58,14 @@ import edu.yale.its.tp.cas.client.Util;
  */
 public class CASAuthenticationValve extends ValveBase
 {
+
+
+    private static final String UTF_8 = "UTF-8";
+
+    /**
+     * request header defined on a web server in front of the portal
+     */
+    public static final String VIRTUAL_HOST_REQUEST_HEADER = "osivia-virtual-host";
 
     private static final String SEP = ":";
 
@@ -512,12 +521,16 @@ public class CASAuthenticationValve extends ValveBase
       ((HttpServletResponse) response).sendRedirect(casLoginString);
    }
    
+
     /**
      * Returns either the configured service or figures it out for the current
      * request. The returned service is URL-encoded.
      */
     private String getService(HttpServletRequest request) throws ServletException {
         String serviceString;
+
+        // [Osivia] Service provided by the header (provided by front Apache)
+        String header = request.getHeader(VIRTUAL_HOST_REQUEST_HEADER);
 
         // [Osivia] get the current server name, do not use the servername set in portal properties
         String currentServerName = request.getServerName().concat(SEP).concat(Integer.toString(request.getServerPort()));
@@ -527,17 +540,25 @@ public class CASAuthenticationValve extends ValveBase
             throw new ServletException("need one of the following configuration " + "parameters: edu.yale.its.tp.cas.client.filter.serviceUrl or "
                     + "edu.yale.its.tp.cas.client.filter.serverName");
 
-        // use the given string if it's provided
-        if (casServiceUrl != null) {
-            serviceString = URLEncoder.encode(casServiceUrl);
-        } else if (currentServerName != null) {
-            // [Osivia] build service url
-            serviceString = Util.getService(request, currentServerName);
-        } else {
-            // otherwise, return our best guess at the service
-            serviceString = Util.getService(request, casServerName);
-        }
+        try {
+            // use the given string if it's provided
+            if (casServiceUrl != null) {
+                serviceString = URLEncoder.encode(casServiceUrl, UTF_8);
+            } else if (header != null) {
+                // [Osivia] get url from front web server
 
+                serviceString = URLEncoder.encode(header, UTF_8);
+
+            } else if (currentServerName != null) {
+                // [Osivia] try to build service url
+                serviceString = Util.getService(request, currentServerName);
+            } else {
+                // otherwise, return our best guess at the service
+                serviceString = Util.getService(request, casServerName);
+            }
+        } catch (UnsupportedEncodingException e) {
+            throw new ServletException(e);
+        }
         return serviceString;
     }
 
