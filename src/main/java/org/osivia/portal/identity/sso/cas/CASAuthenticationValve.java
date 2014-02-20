@@ -393,10 +393,11 @@ public class CASAuthenticationValve extends ValveBase
       this.getNext().invoke(request, response);
         
       //Perform a logout on the CAS SSO Session
-      if(request.getAttribute("org.jboss.portal.logout") != null)
-      {         
-         response.sendRedirect(this.casLogout);
-      }
+      // LBI #360 CAS signout sent before portal logout
+        // if(request.getAttribute("org.jboss.portal.logout") != null)
+        // {
+        // response.sendRedirect(this.casLogout);
+        // }
    }
 
    /**
