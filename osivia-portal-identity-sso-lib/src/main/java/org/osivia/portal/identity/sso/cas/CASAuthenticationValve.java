@@ -60,7 +60,11 @@ public class CASAuthenticationValve extends ValveBase
 {
 
 
-    private static final String UTF_8 = "UTF-8";
+	private static final int HTTPS_PORT = 443;
+
+	private static final int HTTP_PORT = 80;
+
+	private static final String UTF_8 = "UTF-8";
 
     /**
      * request header defined on a web server in front of the portal
@@ -70,7 +74,7 @@ public class CASAuthenticationValve extends ValveBase
     private static final String SEP = ":";
 
     /** . */
-    private static final Logger log = Logger.getLogger(CASAuthenticationValve.class);
+	private static final Logger log = Logger.getLogger("valve");
 
 
    /**
@@ -186,13 +190,13 @@ public class CASAuthenticationValve extends ValveBase
    private boolean casRenew;
 
    /** True if this filter should set gateway=true on login redirect */
-   private boolean casGateway = false;
+   private final boolean casGateway = false;
 
    /**
     * List of ProxyTicketReceptor URLs of services authorized to proxy to the
     * path behind this filter.
     */
-   private List authorizedProxies = new ArrayList();
+   private final List authorizedProxies = new ArrayList();
 
    /**
     * 
@@ -327,10 +331,11 @@ public class CASAuthenticationValve extends ValveBase
    /**
     * 
     */
-   public void invoke(Request request, Response response) throws IOException,
+   @Override
+public void invoke(Request request, Response response) throws IOException,
          ServletException
    {
-      HttpServletRequest httpRequest = (HttpServletRequest) request;
+      HttpServletRequest httpRequest = request;
       HttpSession session = httpRequest.getSession();
       request.setAttribute("ssoEnabled", "true");
 
@@ -346,8 +351,8 @@ public class CASAuthenticationValve extends ValveBase
             && session.getAttribute(CAS_FILTER_USER) == null)
       {
          // perform CAS login by going to the CAS authentication server
-         redirectToCAS((HttpServletRequest) request,
-               (HttpServletResponse) response);
+         redirectToCAS(request,
+               response);
          return;
       }
 
@@ -364,6 +369,10 @@ public class CASAuthenticationValve extends ValveBase
          catch (CASAuthenticationException e)
          {
             skip = true;
+
+				if (log.isDebugEnabled()) {
+					log.error("Authentification failed", e);
+				}
          }
 
          if (!skip && !isReceiptAcceptable(receipt))
@@ -503,6 +512,10 @@ public class CASAuthenticationValve extends ValveBase
       {
          pv.setProxyCallbackUrl(casProxyCallbackUrl);
       }
+		if (log.isDebugEnabled()) {
+		log.debug("getAuthenticatedUser -> try to validate the ticket "
+				+ pv.toString());
+		}
 
       return CASReceipt.getReceipt(pv);
    }
@@ -514,12 +527,14 @@ public class CASAuthenticationValve extends ValveBase
    private void redirectToCAS(HttpServletRequest request,
          HttpServletResponse response) throws IOException, ServletException
    {
+
+	   
       String casLoginString = casLogin + "?service="
-            + getService((HttpServletRequest) request)
+            + getService(request)
             + ((casRenew) ? "&renew=true" : "")
             + (casGateway ? "&gateway=true" : "");
 
-      ((HttpServletResponse) response).sendRedirect(casLoginString);
+      response.sendRedirect(casLoginString);
    }
    
 
@@ -528,13 +543,25 @@ public class CASAuthenticationValve extends ValveBase
      * request. The returned service is URL-encoded.
      */
     private String getService(HttpServletRequest request) throws ServletException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("redirectToCAS -> entering getService...");
+		}
+
         String serviceString;
 
         // [Osivia] Service provided by the header (provided by front Apache)
         String header = request.getHeader(VIRTUAL_HOST_REQUEST_HEADER);
 
         // [Osivia] get the current server name, do not use the servername set in portal properties
-        String currentServerName = request.getServerName().concat(SEP).concat(Integer.toString(request.getServerPort()));
+        // do not add ports if they are standard
+		String currentServerName = request.getServerName();
+
+		if (request.getServerPort() != HTTP_PORT
+				&& request.getServerPort() != HTTPS_PORT) {
+			currentServerName = currentServerName.concat(SEP).concat(
+					Integer.toString(request.getServerPort()));
+		}
 
         // ensure we have a server name or service name
         if (casServerName == null && casServiceUrl == null)
@@ -545,17 +572,37 @@ public class CASAuthenticationValve extends ValveBase
             // use the given string if it's provided
             if (casServiceUrl != null) {
                 serviceString = URLEncoder.encode(casServiceUrl, UTF_8);
+
+				if (log.isDebugEnabled()) {
+					log.debug("use the given string casServiceUrl : "
+						+ serviceString);
+				}
+
             } else if (header != null) {
                 // [Osivia] get url from front web server
 
                 serviceString = URLEncoder.encode(header, UTF_8);
 
+				if (log.isDebugEnabled()) {
+					log.debug("use the url given by front web server: "
+						+ serviceString);
+				}
             } else if (currentServerName != null) {
                 // [Osivia] try to build service url
                 serviceString = Util.getService(request, currentServerName);
+
+				if (log.isDebugEnabled()) {
+				log.debug("try to build service url with the request : "
+						+ serviceString);
+				}
             } else {
                 // otherwise, return our best guess at the service
                 serviceString = Util.getService(request, casServerName);
+
+				if (log.isDebugEnabled()) {
+				log.debug("default case, return our best guess at the service : "
+						+ serviceString);
+				}
             }
         } catch (UnsupportedEncodingException e) {
             throw new ServletException(e);
