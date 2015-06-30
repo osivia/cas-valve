@@ -329,6 +329,26 @@ public class CASAuthenticationValve extends ValveBase
    }
 
    /**
+    * Gets the cas proxy callback url.
+    * 
+    * @return the cas proxy callback url
+    */
+   public String getCasProxyCallbackUrl() {
+       return casProxyCallbackUrl;
+   }
+
+   /**
+    * Sets the cas proxy callback url.
+    * 
+    * @param casProxyCallbackUrl
+    *            the new cas proxy callback url
+    */
+   public void setCasProxyCallbackUrl(String casProxyCallbackUrl) {
+       this.casProxyCallbackUrl = casProxyCallbackUrl;
+   }
+  
+   
+   /**
     * 
     */
    @Override
