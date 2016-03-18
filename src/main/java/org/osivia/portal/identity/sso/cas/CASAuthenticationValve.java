@@ -404,6 +404,10 @@ public void invoke(Request request, Response response) throws IOException,
          {
             session.setAttribute(CAS_FILTER_USER, receipt.getUserName());
             session.setAttribute(CAS_FILTER_RECEIPT, receipt);
+            
+            String casResponse = (String) request.getAttribute("casresponse");
+            session.setAttribute("edu.yale.its.tp.cas.client.filter.response", casResponse);
+            
    
             // perform the portal JAAS authentication
             String user = receipt.getUserName();
@@ -537,7 +541,13 @@ public void invoke(Request request, Response response) throws IOException,
 				+ pv.toString());
 		}
 
-      return CASReceipt.getReceipt(pv);
+		
+		
+      CASReceipt receipt =  CASReceipt.getReceipt(pv);
+      
+      request.setAttribute("casresponse",pv.getResponse());
+      
+      return receipt;
    }
 
    
