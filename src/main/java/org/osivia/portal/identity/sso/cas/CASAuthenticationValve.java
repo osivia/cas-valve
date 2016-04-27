@@ -80,7 +80,7 @@ public class CASAuthenticationValve extends ValveBase {
     private static final String SEP = ":";
 
     /** . */
-    private static final Logger log = Logger.getLogger("valve");
+    private static final Logger log = Logger.getLogger(CASAuthenticationValve.class);
 
 
     /**
@@ -418,14 +418,17 @@ public class CASAuthenticationValve extends ValveBase {
 
         if (CommonUtils.isNotBlank(ticket) && session.getAttribute(CONST_CAS_ASSERTION) == null) {
             try {
+                
+                log.info("avant validation cas");
+                
                 final Assertion assertion = this.getTicketValidator().validate(ticket, constructServiceUrl(request, response));
                 
                 StringBuffer sb = new StringBuffer();
                 
                 sb.append("principal:" + assertion.getPrincipal()+"\n\n");
-                Set<String> attributes = assertion.getAttributes().keySet();
+                Set<String> attributes = assertion.getPrincipal().getAttributes().keySet();
                 for( String attr: attributes){
-                    sb.append(attr + "=" + assertion.getAttributes().get(attr) +"\n\n");
+                    sb.append(attr + "=" + assertion.getPrincipal().getAttributes().get(attr) +"\n\n");
                 }
                 
                 log.info(sb.toString());
