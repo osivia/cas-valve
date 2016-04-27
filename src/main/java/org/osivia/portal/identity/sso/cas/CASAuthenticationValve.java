@@ -23,17 +23,11 @@
 package org.osivia.portal.identity.sso.cas;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -60,7 +54,7 @@ import org.jboss.portal.identity.helper.IdentityTools;
 
 /*
  * Created on May 23, 2007
- * 
+ *
  * @author <a href="mailto:sshah@redhat.com">Sohil Shah</a>
  */
 public class CASAuthenticationValve extends ValveBase {
@@ -165,8 +159,8 @@ public class CASAuthenticationValve extends ValveBase {
      * Session attribute in which the CASReceipt is stored.
      */
     public final static String CAS_FILTER_RECEIPT = "edu.yale.its.tp.cas.client.filter.receipt";
-    
-    
+
+
     public static final String CONST_CAS_ASSERTION = "_const_cas_assertion_";
 
     // *********************************************************************
@@ -195,28 +189,28 @@ public class CASAuthenticationValve extends ValveBase {
      */
     private String casProxyCallbackUrl;
 
- 
-    
+
+
     private String casServerUrlPrefix = null;
 
-     
+
     public String getCasServerUrlPrefix() {
         return casServerUrlPrefix;
     }
 
-    
+
     public void setCasServerUrlPrefix(String casServerUrlPrefix) {
         this.casServerUrlPrefix = casServerUrlPrefix;
     }
 
 
     private GatewayResolver gatewayStorage = new DefaultGatewayResolverImpl();
-    
-    
+
+
     private Set urlPatterns;
 
     /**
-    * 
+    *
     */
     private String authType = null;
 
@@ -225,17 +219,17 @@ public class CASAuthenticationValve extends ValveBase {
      * the file.encoding system property.
      */
     private String fileEncoding = null;
-    
-    
+
+
 
     public CASAuthenticationValve() {
         super();
         fileEncoding = System.getProperty("file.encoding");
-        
+
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getCasLogin() {
@@ -243,7 +237,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @param casLogin
      */
     public void setCasLogin(String casLogin) {
@@ -251,7 +245,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getCasLogout() {
@@ -259,7 +253,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @param casLogout
      */
     public void setCasLogout(String casLogout) {
@@ -267,7 +261,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getCasServerName() {
@@ -275,7 +269,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @param casServerName
      */
     public void setCasServerName(String casServerName) {
@@ -283,7 +277,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getCasValidate() {
@@ -291,7 +285,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @param casValidate
      */
     public void setCasValidate(String casValidate) {
@@ -299,7 +293,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getAuthType() {
@@ -307,7 +301,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @param authType
      */
     public void setAuthType(String authType) {
@@ -315,7 +309,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public String getCasServiceUrl() {
@@ -323,7 +317,7 @@ public class CASAuthenticationValve extends ValveBase {
     }
 
     /**
-     * 
+     *
      * @param casServiceUrl
      */
     public void setCasServiceUrl(String casServiceUrl) {
@@ -332,7 +326,7 @@ public class CASAuthenticationValve extends ValveBase {
 
     /**
      * Gets the cas proxy callback url.
-     * 
+     *
      * @return the cas proxy callback url
      */
     public String getCasProxyCallbackUrl() {
@@ -341,7 +335,7 @@ public class CASAuthenticationValve extends ValveBase {
 
     /**
      * Sets the cas proxy callback url.
-     * 
+     *
      * @param casProxyCallbackUrl
      *            the new cas proxy callback url
      */
@@ -349,11 +343,11 @@ public class CASAuthenticationValve extends ValveBase {
         this.casProxyCallbackUrl = casProxyCallbackUrl;
     }
 
-    
-    
-    
+
+
+
     public final boolean redirectToCAS(final ServletRequest servletRequest, final ServletResponse servletResponse) throws IOException, ServletException {
-        
+
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
         final HttpSession session = request.getSession(false);
@@ -374,7 +368,7 @@ public class CASAuthenticationValve extends ValveBase {
 
         log.debug("no ticket and no assertion found");
          modifiedServiceUrl = serviceUrl;
- 
+
         if (log.isDebugEnabled()) {
             log.debug("Constructed service url: " + modifiedServiceUrl);
         }
@@ -388,10 +382,10 @@ public class CASAuthenticationValve extends ValveBase {
         response.sendRedirect(urlToRedirectTo);
         return true;
     }
-    
+
 
     /**
-    * 
+    *
     */
     @Override
     public void invoke(Request request, Response response) throws IOException, ServletException {
@@ -408,29 +402,29 @@ public class CASAuthenticationValve extends ValveBase {
         String requestURI = request.getRequestURI();
         if (isSecuredURI(requestURI) ) {
             // perform CAS login by going to the CAS authentication server
-            if( redirectToCAS(request, response))
-            return;
+            if(redirectToCAS(request, response)) {
+                return;
+            }
         }
 
 
         final String ticket = CommonUtils.safeGetParameter(request, getArtifactParameterName());
 
 
-        if (CommonUtils.isNotBlank(ticket) && session.getAttribute(CONST_CAS_ASSERTION) == null) {
+        if (CommonUtils.isNotBlank(ticket) && (session.getAttribute(CONST_CAS_ASSERTION) == null)) {
             try {
-                
                 log.info("avant validation cas");
                 
                 final Assertion assertion = this.getTicketValidator().validate(ticket, constructServiceUrl(request, response));
-                
+
                 StringBuffer sb = new StringBuffer();
-                
-                sb.append("principal:" + assertion.getPrincipal()+"\n\n");
+
+                sb.append("principal:" + assertion.getPrincipal() + "\n");
                 Set<String> attributes = assertion.getPrincipal().getAttributes().keySet();
                 for( String attr: attributes){
-                    sb.append(attr + "=" + assertion.getPrincipal().getAttributes().get(attr) +"\n\n");
+                    sb.append(attr + "=" + assertion.getPrincipal().getAttributes().get(attr) + "\n");
                 }
-                
+
                 log.info(sb.toString());
 
 
@@ -439,6 +433,18 @@ public class CASAuthenticationValve extends ValveBase {
 
                 // perform the portal JAAS authentication
                 String user = assertion.getPrincipal().getName();
+
+                if (user.startsWith("uid=")) {
+                    // ex: uid=mdupont,ou=personnels EN,ou=ac-rennes,ou=education,o=gouv,c=fr
+                    String[] dn = user.split(",");
+                    String uid = dn[0];
+                    String uidValue = uid.split("=")[1];
+
+                    String codeAca = (String) assertion.getPrincipal().getAttributes().get("ENTCodeAcademie");
+                    codeAca = codeAca != null ? "@" + codeAca : "";
+                    user = uidValue + codeAca;
+                }
+
                 request.setAttribute("ssoSuccess", new Boolean(true));
                 Principal principal = ((Context) this.container).getRealm().authenticate(user, (String) null);
                 if (principal != null) {
@@ -447,8 +453,10 @@ public class CASAuthenticationValve extends ValveBase {
             } catch (final TicketValidationException e) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 log.warn(e, e);
-
-
+                return;
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                log.warn(e, e);
                 return;
             }
         }
@@ -469,7 +477,7 @@ public class CASAuthenticationValve extends ValveBase {
      * request, in the current session (if there is one), and with our
      * SingleSignOn valve, if there is one. Set the appropriate cookie to be
      * returned.
-     * 
+     *
      * @param request
      *            The servlet request we are processing
      * @param response
@@ -508,7 +516,7 @@ public class CASAuthenticationValve extends ValveBase {
 
 
 
-   
+
 
 
 
@@ -588,9 +596,9 @@ public class CASAuthenticationValve extends ValveBase {
     private String getServiceParameterName() {
         return "TARGET";
     }
-    
 
 
-          
+
+
 
 }
