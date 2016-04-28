@@ -36,7 +36,7 @@
 
 
     <scm>
-        <developerConnection>scm:svn:http://www.osivia.org/repos/osivia-services/cas-server-webapp/trunk</developerConnection>
+        <developerConnection>scm:svn:http://www.osivia.org/repos/osivia-services/cas-server-webapp/trunk/osivia-portal-identity-sso-lib-saml-cartoun</developerConnection>
     </scm>
 
 
