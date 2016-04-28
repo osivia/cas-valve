@@ -434,17 +434,6 @@ public class CASAuthenticationValve extends ValveBase {
                 // perform the portal JAAS authentication
                 String user = assertion.getPrincipal().getName();
 
-                if (user.startsWith("uid=")) {
-                    // ex: uid=mdupont,ou=personnels EN,ou=ac-rennes,ou=education,o=gouv,c=fr
-                    String[] dn = user.split(",");
-                    String uid = dn[0];
-                    String uidValue = uid.split("=")[1];
-
-                    String codeAca = (String) assertion.getPrincipal().getAttributes().get("ENTCodeAcademie");
-                    codeAca = codeAca != null ? "@" + codeAca : "";
-                    user = uidValue + codeAca;
-                }
-
                 request.setAttribute("ssoSuccess", new Boolean(true));
                 Principal principal = ((Context) this.container).getRealm().authenticate(user, (String) null);
                 if (principal != null) {
