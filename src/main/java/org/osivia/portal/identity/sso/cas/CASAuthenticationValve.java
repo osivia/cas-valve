@@ -50,6 +50,9 @@ import org.jasig.cas.client.validation.Saml11TicketValidator;
 import org.jasig.cas.client.validation.TicketValidationException;
 import org.jasig.cas.client.validation.TicketValidator;
 import org.jboss.portal.identity.helper.IdentityTools;
+import org.osivia.portal.api.locator.Locator;
+import org.osivia.portal.api.login.IUserDatasModuleRepository;
+import org.osivia.portal.api.login.UserDatasModuleMetadatas;
 
 
 /*
@@ -220,12 +223,14 @@ public class CASAuthenticationValve extends ValveBase {
      */
     private String fileEncoding = null;
 
+    private IUserDatasModuleRepository userModuleRepo;
 
 
     public CASAuthenticationValve() {
         super();
         fileEncoding = System.getProperty("file.encoding");
 
+        userModuleRepo = Locator.findMBean(IUserDatasModuleRepository.class, IUserDatasModuleRepository.MBEAN_NAME);
     }
 
     /**
@@ -414,7 +419,7 @@ public class CASAuthenticationValve extends ValveBase {
         if (CommonUtils.isNotBlank(ticket) && (session.getAttribute(CONST_CAS_ASSERTION) == null)) {
             try {
                 log.info("avant validation cas");
-                
+
                 final Assertion assertion = this.getTicketValidator().validate(ticket, constructServiceUrl(request, response));
 
                 StringBuffer sb = new StringBuffer();
@@ -435,9 +440,27 @@ public class CASAuthenticationValve extends ValveBase {
                 String user = assertion.getPrincipal().getName();
 
                 request.setAttribute("ssoSuccess", new Boolean(true));
+
+
                 Principal principal = ((Context) this.container).getRealm().authenticate(user, (String) null);
                 if (principal != null) {
+                    UserDatasModuleMetadatas feeder = userModuleRepo.getModule("CARTOUNFEEDER");
+
+                    if (feeder == null) {
+                        log.info("CARTOUNFEEDER is null, trying SUPPORTFEEDER");
+                        // si le feeder cartoun n'est pas présent on tente de retrouver le feeder de test
+                        feeder = userModuleRepo.getModule("SUPPORTFEEDER");
+                    }
+                    if (feeder != null) {
+                        log.info("feeder: " + feeder.getName() + ", user: " + user);
+
+                        feeder.getModule().computeLoggedUser(httpRequest);
+                    } else {
+                        log.info("SUPPORTFEEDER is null");
+                    }
+
                     this.register(request, response, principal, this.authType, user, (String) null);
+
                 }
             } catch (final TicketValidationException e) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
