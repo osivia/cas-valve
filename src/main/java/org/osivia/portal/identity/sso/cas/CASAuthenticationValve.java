@@ -24,8 +24,10 @@ package org.osivia.portal.identity.sso.cas;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -444,6 +446,10 @@ public class CASAuthenticationValve extends ValveBase {
 
                 Principal principal = ((Context) this.container).getRealm().authenticate(user, (String) null);
                 if (principal != null) {
+                    // exclusion des feeders
+                    List<String> feederNames = Arrays.asList("CARTOUNFEEDER", "SUPPORTFEEDER");
+                    httpRequest.setAttribute("osivia.valve.feeder", feederNames);
+
                     UserDatasModuleMetadatas feeder = userModuleRepo.getModule("CARTOUNFEEDER");
 
                     if (feeder == null) {
