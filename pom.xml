@@ -95,6 +95,11 @@
             	</exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.osivia.portal</groupId>
+            <artifactId>osivia-portal-api</artifactId>
+            <version>4.2.8</version>
+        </dependency> 
 
     </dependencies>
 
