@@ -173,6 +173,9 @@ public class CASAuthenticationValve extends ValveBase
 
    /** Filtered service URL for use as service parameter to login and validate */
    private String casServiceUrl;
+   
+   /** enable broken security mode (non-production) */
+   private Boolean brokenSecurityMode = Boolean.FALSE;
 
    /**
     * Name of server, for use in assembling service URL for use as service
@@ -348,7 +351,23 @@ public class CASAuthenticationValve extends ValveBase
    }
   
    
-   /**
+   
+	   
+	   /**
+	 * @return the brokenSecurityMode
+	 */
+	public Boolean getBrokenSecurityMode() {
+		return brokenSecurityMode;
+	}
+	
+	/**
+	 * @param brokenSecurityMode the brokenSecurityMode to set
+	 */
+	public void setBrokenSecurityMode(Boolean brokenSecurityMode) {
+		this.brokenSecurityMode = brokenSecurityMode;
+	}
+
+/**
     * 
     */
    @Override
@@ -541,6 +560,10 @@ public void invoke(Request request, Response response) throws IOException,
 				+ pv.toString());
 		}
 
+		if(brokenSecurityMode){ 
+			pv.setBrokenSecurityMode(true);
+		}
+			
 		
 		
       CASReceipt receipt =  CASReceipt.getReceipt(pv);
