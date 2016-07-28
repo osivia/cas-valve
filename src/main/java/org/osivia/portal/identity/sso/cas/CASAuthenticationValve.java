@@ -27,9 +27,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -45,6 +47,12 @@ import org.apache.catalina.connector.Response;
 import org.apache.catalina.valves.ValveBase;
 import org.apache.log4j.Logger;
 import org.jboss.portal.identity.helper.IdentityTools;
+import org.osivia.portal.api.customization.CustomizationContext;
+import org.osivia.portal.api.feeder.IFeederService;
+import org.osivia.portal.api.locator.Locator;
+import org.osivia.portal.api.theming.IAttributesBundle;
+import org.osivia.portal.core.customization.ICustomizationService;
+
 
 import edu.yale.its.tp.cas.client.CASAuthenticationException;
 import edu.yale.its.tp.cas.client.CASReceipt;
@@ -216,11 +224,19 @@ public class CASAuthenticationValve extends ValveBase
     * the file.encoding system property.
     */
    private String fileEncoding = null;
+   
+   /** Customization service. */
+   private ICustomizationService customizationService;
+   
+   
+
 
    public CASAuthenticationValve() 
    {
       super();
       fileEncoding = System.getProperty("file.encoding");
+      // Customization service
+      customizationService = Locator.findMBean(ICustomizationService.class, ICustomizationService.MBEAN_NAME);
    }
 
    /**
@@ -431,6 +447,16 @@ public void invoke(Request request, Response response) throws IOException,
             // perform the portal JAAS authentication
             String user = receipt.getUserName();
             request.setAttribute("ssoSuccess", new Boolean(true));
+            
+            
+            // Feeder invocations
+            Map<String, Object> customizerAttributes = new HashMap<String, Object>();
+            customizerAttributes.put(IFeederService.CUSTOMIZER_ATTRIBUTE_REQUEST, request);
+            CustomizationContext context = new CustomizationContext(customizerAttributes);
+            this.customizationService.customize(IFeederService.CUSTOMIZER_ID, context);
+
+            
+            
             Principal principal = ((Context) this.container).getRealm()
                   .authenticate(user, (String) null);
             if (principal != null)
@@ -438,6 +464,7 @@ public void invoke(Request request, Response response) throws IOException,
                this.register(request, response, principal, this.authType, user,
                      (String) null);
             }
+             
          }
       }
 
