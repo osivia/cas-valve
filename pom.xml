@@ -12,7 +12,7 @@
 
 	<properties>
 		<!-- Toutatice -->
-		<osivia-portal.version>4.4.0-SNAPSHOT</osivia-portal.version>
+		<osivia-portal.version>4.4.0-RC4</osivia-portal.version>
 	</properties>
 
 
