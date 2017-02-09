@@ -440,7 +440,11 @@ public void invoke(Request request, Response response) throws IOException,
             session.setAttribute(CAS_FILTER_USER, receipt.getUserName());
             session.setAttribute(CAS_FILTER_RECEIPT, receipt);
             
+
             String casResponse = (String) request.getAttribute("casresponse");
+            if (log.isDebugEnabled()) {
+                log.debug("casresponse:"+casResponse);
+            }
             session.setAttribute("edu.yale.its.tp.cas.client.filter.response", casResponse);
             
    
@@ -660,8 +664,37 @@ public void invoke(Request request, Response response) throws IOException,
 
             } else if (header != null) {
                 // [Osivia] get url from front web server
+                
+                StringBuffer sb = new StringBuffer();
+                
+                sb.append(header);
+                sb.append(request.getRequestURI());
 
-                serviceString = URLEncoder.encode(header, UTF_8);
+                // Ticket management :  Copied from Util.getService
+                if (request.getQueryString() != null) {
+                    // first, see whether we've got a 'ticket' at all
+                    int ticketLoc = request.getQueryString().indexOf("ticket=");
+
+                    // if ticketLoc == 0, then it's the only parameter and we ignore
+                    // the whole query string
+
+                    // if no ticket is present, we use the query string wholesale
+                    if (ticketLoc == -1)
+                        sb.append("?" + request.getQueryString());
+                    else if (ticketLoc > 0) {
+                        ticketLoc = request.getQueryString().indexOf("&ticket=");
+                        if (ticketLoc == -1) {
+                            // there was a 'ticket=' unrelated to a parameter named 'ticket'
+                            sb.append("?" + request.getQueryString());
+                        } else if (ticketLoc > 0) {
+                            // otherwise, we use the query string up to "&ticket="
+                            sb.append("?" + request.getQueryString().substring(0, ticketLoc));
+                        }
+                    }
+                }
+                  
+
+                serviceString = URLEncoder.encode(sb.toString(), UTF_8);
 
 				if (log.isDebugEnabled()) {
 					log.debug("use the url given by front web server: "
