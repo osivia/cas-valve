@@ -4,7 +4,7 @@
    <modelVersion>4.0.0</modelVersion>
     <groupId>org.osivia.portal.identity</groupId>
     <artifactId>osivia-portal-identity-sso-lib</artifactId>
-    <version>3.0.9</version>
+    <version>3.0.10-SNAPSHOT</version>
     <name>Valve CAS pour Osivia portal</name>
     <packaging>jar</packaging>
 
@@ -46,7 +46,7 @@
 
 
 	<scm>
-		<developerConnection>scm:svn:http://www.osivia.org/repos/osivia-services/cas/valve/tags/3.0.9
+		<developerConnection>scm:svn:http://www.osivia.org/repos/osivia-services/cas/valve/trunk
 		</developerConnection>
 	</scm>
 
