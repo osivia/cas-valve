@@ -399,8 +399,20 @@ public void invoke(Request request, Response response) throws IOException,
       {
          request.setCharacterEncoding(fileEncoding);
       }
-
+      
+      // #1980 - evaluate upstream CAS server if urlCAS is provided
       String requestURI = request.getRequestURI();
+      if (request.getParameter("ticket") != null
+            && request.getParameter("urlCAS") != null
+            && session.getAttribute(CAS_FILTER_USER) == null)
+      {
+         // perform CAS login by going to the CAS authentication server
+         redirectToCAS(request,
+               response);
+         return;
+      }
+     
+
       if (isSecuredURI(requestURI)
             && request.getParameter("ticket") == null
             && session.getAttribute(CAS_FILTER_USER) == null)
@@ -617,6 +629,14 @@ public void invoke(Request request, Response response) throws IOException,
             + getService(request)
             + ((casRenew) ? "&renew=true" : "")
             + (casGateway ? "&gateway=true" : "");
+      
+      // #1980 - evaluate upstream CAS server if urlCAS is provided
+      if(request.getParameter("urlCAS") != null && request.getParameter("ticket") != null) {
+    	  
+    	  String encodeUrlCas = URLEncoder.encode(request.getParameter("urlCAS").toString(), UTF_8);
+    	  
+    	  casLoginString += "&urlCAS=" + encodeUrlCas + "&ticket=" + request.getParameter("ticket");
+      }
 
       response.sendRedirect(casLoginString);
    }
