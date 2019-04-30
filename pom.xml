@@ -39,21 +39,19 @@
 
     <scm>
         <url>https://github.com/osivia/cas-valve</url>
-        <connection>scm:git:ssh://git@github.com:osivia/cas-valve.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:osivia/cas-valve.git</developerConnection>
+        <connection>scm:git:ssh://git@github.com/osivia/cas-valve.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/osivia/cas-valve.git</developerConnection>
     </scm>
 
 
     <distributionManagement>
         <repository>
             <id>osivia-releases</id>
-            <url>http://www.osivia.org/nexus/content/repositories/osivia-releases
-            </url>
+            <url>http://www.osivia.org/nexus/content/repositories/osivia-releases</url>
         </repository>
         <snapshotRepository>
             <id>osivia-snapshots</id>
-            <url>http://www.osivia.org/nexus/content/repositories/osivia-snapshots
-            </url>
+            <url>http://www.osivia.org/nexus/content/repositories/osivia-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
