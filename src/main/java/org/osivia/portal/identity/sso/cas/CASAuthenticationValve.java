@@ -400,10 +400,10 @@ public void invoke(Request request, Response response) throws IOException,
          request.setCharacterEncoding(fileEncoding);
       }
       
-      // #1980 - evaluate upstream CAS server if urlCAS is provided
+      // #1980 - evaluate upstream CAS server if casName is provided
       String requestURI = request.getRequestURI();
       if (request.getParameter("ticket") != null
-            && request.getParameter("urlCAS") != null
+            && request.getParameter("casName") != null
             && session.getAttribute(CAS_FILTER_USER) == null)
       {
          // perform CAS login by going to the CAS authentication server
@@ -630,12 +630,12 @@ public void invoke(Request request, Response response) throws IOException,
             + ((casRenew) ? "&renew=true" : "")
             + (casGateway ? "&gateway=true" : "");
       
-      // #1980 - evaluate upstream CAS server if urlCAS is provided
-      if(request.getParameter("urlCAS") != null && request.getParameter("ticket") != null) {
+      // #1980 - evaluate upstream CAS server if casName is provided
+      if(request.getParameter("casName") != null && request.getParameter("ticket") != null) {
     	  
-    	  String encodeUrlCas = URLEncoder.encode(request.getParameter("urlCAS").toString(), UTF_8);
+    	  String encodeCasName = URLEncoder.encode(request.getParameter("casName").toString(), UTF_8);
     	  
-    	  casLoginString += "&urlCAS=" + encodeUrlCas + "&ticket=" + request.getParameter("ticket");
+    	  casLoginString += "&casName=" + encodeCasName + "&ticket=" + request.getParameter("ticket");
       }
 
       response.sendRedirect(casLoginString);

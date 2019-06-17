@@ -1,93 +1,67 @@
+*.min.css
+# Created by https://www.gitignore.io/api/maven,eclipse
 
-# Created by https://www.gitignore.io/api/maven,intellij+all
-# Edit at https://www.gitignore.io/?templates=maven,intellij+all
+### Eclipse ###
 
-### Intellij+all ###
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
-# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
 
-# User-specific stuff
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
+# External tool builders
+.externalToolBuilders/
 
-# Generated files
-.idea/**/contentModel.xml
+# Locally stored "Eclipse launch configurations"
+*.launch
 
-# Sensitive or high-churn files
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/dbnavigator.xml
+# PyDev specific (Python IDE for Eclipse)
+*.pydevproject
 
-# Gradle
-.idea/**/gradle.xml
-.idea/**/libraries
+# CDT-specific (C/C++ Development Tooling)
+.cproject
 
-# Gradle and Maven with auto-import
-# When using Gradle or Maven with auto-import, you should exclude module files,
-# since they will be recreated, and may cause churn.  Uncomment if using
-# auto-import.
-# .idea/modules.xml
-# .idea/*.iml
-# .idea/modules
+# Java annotation processor (APT)
+.factorypath
 
-# CMake
-cmake-build-*/
+# PDT-specific (PHP Development Tools)
+.buildpath
 
-# Mongo Explorer plugin
-.idea/**/mongoSettings.xml
+# sbteclipse plugin
+.target
 
-# File-based project format
-*.iws
+# Tern plugin
+.tern-project
 
-# IntelliJ
-out/
+# TeXlipse plugin
+.texlipse
 
-# mpeltonen/sbt-idea plugin
-.idea_modules/
+# STS (Spring Tool Suite)
+.springBeans
 
-# JIRA plugin
-atlassian-ide-plugin.xml
+# Code Recommenders
+.recommenders/
 
-# Cursive Clojure plugin
-.idea/replstate.xml
+# Scala IDE specific (Scala & Java development for Eclipse)
+.cache-main
+.scala_dependencies
+.worksheet
 
-# Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
+### Eclipse Patch ###
+# Eclipse Core
+.project
 
-# Editor-based Rest Client
-.idea/httpRequests
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
 
-# Android studio 3.1+ serialized cache file
-.idea/caches/build_file_checksums.ser
-
-# JetBrains templates
-**___jb_tmp___
-
-### Intellij+all Patch ###
-# Ignores the whole .idea folder and all .iml files
-# See https://github.com/joeblau/gitignore.io/issues/186 and https://github.com/joeblau/gitignore.io/issues/360
-
-.idea/
-
-# Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
-
-*.iml
-modules.xml
-.idea/misc.xml
-*.ipr
-
-# Sonarlint plugin
-.idea/sonarlint
+# Annotation Processing
+.apt_generated
 
 ### Maven ###
 target/
@@ -99,6 +73,9 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-.mvn/wrapper/maven-wrapper.jar
 
-# End of https://www.gitignore.io/api/maven,intellij+all
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+
+
+# End of https://www.gitignore.io/api/maven,eclipse
