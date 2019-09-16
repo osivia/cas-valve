@@ -417,9 +417,17 @@ public void invoke(Request request, Response response) throws IOException,
             && request.getParameter("ticket") == null
             && session.getAttribute(CAS_FILTER_USER) == null)
       {
+          
+         if (requestURI.indexOf("/auth/noredirect/pagemarker/") == -1)   { 
          // perform CAS login by going to the CAS authentication server
          redirectToCAS(request,
                response);
+         }  else
+         {
+             String header = request.getHeader(VIRTUAL_HOST_REQUEST_HEADER);
+             response.sendRedirect(header+"/osivia-portal-custom-web-assets/redirection/ajax-reload.jsp");
+         }
+         
          return;
       }
 
