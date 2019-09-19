@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.osivia.portal.identity</groupId>
     <artifactId>osivia-portal-identity-sso-lib</artifactId>
-    <version>3.0.12-SNAPSHOT</version>
+    <version>3.0.13-SNAPSHOT</version>
     <name>Valve CAS pour Osivia portal</name>
     <packaging>jar</packaging>
 
 
     <properties>
         <!-- Toutatice -->
-        <osivia-portal.version>4.9-SNAPSHOT</osivia-portal.version>
+        <osivia-portal.version>4.9</osivia-portal.version>
     </properties>
 
 

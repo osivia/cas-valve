@@ -24,6 +24,7 @@ package org.osivia.portal.identity.sso.cas;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -412,6 +413,33 @@ public void invoke(Request request, Response response) throws IOException,
          return;
       }
      
+      
+      if (request.getParameter("ticket") != null
+              && request.getParameter("casName") != null
+              && session.getAttribute(CAS_FILTER_USER) != null) {
+                
+          // Avoid loops if logout has failed
+          if( !"1".equals(request.getParameter("r"))){
+              String redirectUrl = getService( request);
+              redirectUrl = URLDecoder.decode(redirectUrl, UTF_8);
+              
+              if( !redirectUrl.contains("?"))
+                  redirectUrl+= "?";
+              else
+                  redirectUrl+= "&";
+              
+              redirectUrl += "ticket="+request.getParameter("ticket");
+              if( !redirectUrl.contains("casName="))
+                  redirectUrl += "&casName="+request.getParameter("casName");
+              redirectUrl += "&r=1";
+              
+              redirectUrl = URLEncoder.encode(redirectUrl, UTF_8);
+          
+              // Redirect to logout page
+              response.sendRedirect("/portal/portal/default/logout?redirection="+ redirectUrl);
+              return;
+          }
+      }
 
       if (isSecuredURI(requestURI)
             && request.getParameter("ticket") == null
