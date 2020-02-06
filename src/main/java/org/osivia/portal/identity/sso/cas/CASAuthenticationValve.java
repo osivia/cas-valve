@@ -417,6 +417,7 @@ public void invoke(Request request, Response response) throws IOException,
       if (request.getParameter("ticket") != null
               && request.getParameter("casName") != null
               && session.getAttribute(CAS_FILTER_USER) != null) {
+          // perform logout prior to external sso
                 
           // Avoid loops if logout has failed
           if( !"1".equals(request.getParameter("r"))){
