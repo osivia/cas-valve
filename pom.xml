@@ -4,34 +4,20 @@
    <modelVersion>4.0.0</modelVersion>
     <groupId>org.osivia.portal.identity</groupId>
     <artifactId>osivia-portal-identity-sso-lib</artifactId>
-    <version>3.0.9</version>
+    <version>4.7.0-SNAPSHOT</version>
     <name>Valve CAS pour Osivia portal</name>
     <packaging>jar</packaging>
 
 
 	<properties>
 		<!-- Toutatice -->
-		<osivia-portal.version>4.4.0-RC4</osivia-portal.version>
+		<osivia-portal.version>4.7.51</osivia-portal.version>
 	</properties>
-
-
 
  
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.2.1</version>
-				<configuration>
-					<tagBase>http://www.osivia.org/repos/osivia-services/cas/valve/tags</tagBase>
-					<releaseProfiles>unpack,pack</releaseProfiles>
-					<preparationGoals>clean install</preparationGoals>
-					<goals>deploy</goals>
-				</configuration>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -46,9 +32,10 @@
 
 
 	<scm>
-		<developerConnection>scm:svn:http://www.osivia.org/repos/osivia-services/cas/valve/tags/3.0.9
-		</developerConnection>
-	</scm>
+        <url>https://github.com/osivia/cas-valve</url>
+        <developerConnection>scm:git:git@github.com:osivia/cas-valve.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
 
 	<distributionManagement>
@@ -63,6 +50,9 @@
 			</url>
 		</snapshotRepository>
 	</distributionManagement>
+
+    	    	
+
 
 	<dependencies>
 		<dependency>
@@ -113,17 +103,11 @@
 
 		<dependency>
 			<groupId>org.osivia.portal</groupId>
-			<artifactId>osivia-portal-api</artifactId>
+			<artifactId>osivia-portal-dependencies</artifactId>
 			<version>${osivia-portal.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.osivia.portal.core</groupId>
-			<artifactId>osivia-portal-custom-lib-utils</artifactId>
-			<version>${osivia-portal.version}</version>
-			<scope>provided</scope>
-		</dependency>
 
 
 	</dependencies>
@@ -155,5 +139,25 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+            <id>forge-ci</id>       
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>            
+            <distributionManagement>
+                <repository>
+                    <id>${releaseRepoId}</id>
+                    <name>Internal releases repository</name>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <url>${releaseRepoUrl}</url>
+                </repository>
+                <snapshotRepository>
+                    <id>${snapshotRepoId}</id>
+                    <name>Internal snapshots repository</name>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <url>${snapshotRepoUrl}</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>		
 	</profiles>
 </project>
